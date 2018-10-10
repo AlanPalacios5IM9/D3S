@@ -134,22 +134,22 @@ public class DatoDes {
         return text2;
     }  
     
-    public static void getKeys(String clave) {
-        clave = perm(PC1, clave);
+    public static void getKeys(String key) {
+        key = perm(PC1, key);
         String c, d, c1, d1;
         for (int i = 0; i < 16; i++) {
-            c = clave.substring(0, 28);
-            d = clave.substring(28, 56);
+            c = key.substring(0, 28);
+            d = key.substring(28, 56);
             c1 = c.substring(shift[i]) + c.substring(0, shift[i]);
             d1 = d.substring(shift[i]) + d.substring(0, shift[i]);
-            clave = c1 + d1;
-            keys[i] = perm(PC2, clave);
+            key = c1 + d1;
+            keys[i] = perm(PC2, key);
         }
     }    
       
-    public static String boxs(String texto, int s) {
-        text2 = "" + texto.charAt(0) + texto.charAt(5);
-        text3 = texto.substring(1, 5);
+    public static String boxs(String text, int s) {
+        text2 = "" + text.charAt(0) + text.charAt(5);
+        text3 = text.substring(1, 5);
         int k = Integer.parseInt(text2, 2) * 16 + Integer.parseInt(text3, 2);
         int caja = boxs[s][k];
         sbox = Integer.toBinaryString(caja);
@@ -158,14 +158,14 @@ public class DatoDes {
         return sbox;
     }
     
-    public static void step(String clave) {
+    public static void step(String key) {
         l = lr.substring(0, 32);
         r = lr.substring(32, 64);
         r = perm(expantion, r);
         l1 = "";
         r1 = "";
         for (int i = 0; i < 48; i++)
-            r1 += r.charAt(i) ^ clave.charAt(i);
+            r1 += r.charAt(i) ^ key.charAt(i);
         for (int i = 0; i < 8; i++) {
             t = r1.substring(6 * i, 6 * i + 6);
             l1 += boxs(t, i);
